@@ -40,10 +40,16 @@ X_reg = X[lista_columnas]
 
 X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_reg, y, test_size=0.3, random_state=37)
 
+scaler = StandardScaler()
+scaler.fit(X_train_reg)
+
+X_train_reg = scaler.transform(X_train_reg)
+X_test_reg = scaler.transform(X_test_reg)
+
 lin_reg = LinearRegression()
 lin_reg.fit(X_train_reg, y_train_reg)
 
-filename = 'regularized_lineal_regression_model.sav'
+filename = '../models/regularized_lineal_regression_model.sav'
 pickle.dump(lin_reg, open(filename, 'wb'))
 
 y_train_pred = lin_reg.predict(X_train_reg)
